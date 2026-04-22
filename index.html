@@ -59,7 +59,7 @@ window.doSignOut = async function() {
   location.reload();
 };
 
-const dataRef = ref(db, 'michaelTaskboard');
+const dataRef = ref(db, 'michaels-taskboard');
 window._fbRef = dataRef;
 window._fbSet = set;
 window._fbGet = get;
@@ -1989,7 +1989,7 @@ Rules:
         'Authorization': 'Bearer ' + idToken
       },
       body: JSON.stringify({
-        app: 'michaelTaskboard',
+        app: 'michaels-taskboard',
         system: systemPrompt,
         messages: aiConversation
       })
@@ -2132,7 +2132,7 @@ function loadAIHistory() {
   if (!window._fbDb || !window._fbRefFn || !window._fbOnValue) return;
   if (aiHistoryListenerSet) return;
   try {
-    const histRef = window._fbRefFn(window._fbDb, 'michaelTaskboard/aiHistory');
+    const histRef = window._fbRefFn(window._fbDb, 'michaels-taskboard/aiHistory');
     window._fbOnValue(histRef, (snap) => {
       const data = snap.exists() ? snap.val() : [];
       // Firebase returns object if keys look numeric, normalize to array
@@ -2147,7 +2147,7 @@ async function appendAIHistory(entry) {
   if (!window._fbDb || !window._fbRefFn || !window._fbSet) return;
   try {
     aiHistory.push(entry);
-    const histRef = window._fbRefFn(window._fbDb, 'michaelTaskboard/aiHistory');
+    const histRef = window._fbRefFn(window._fbDb, 'michaels-taskboard/aiHistory');
     await window._fbSet(histRef, aiHistory);
   } catch(e) { console.warn('AI history save failed:', e); }
 }
@@ -2233,7 +2233,7 @@ async function deleteAIHistoryEntry(idx) {
   if (!confirm('Delete this AI history entry?')) return;
   aiHistory.splice(idx, 1);
   try {
-    const histRef = window._fbRefFn(window._fbDb, 'michaelTaskboard/aiHistory');
+    const histRef = window._fbRefFn(window._fbDb, 'michaels-taskboard/aiHistory');
     await window._fbSet(histRef, aiHistory);
     renderAIHistory();
   } catch(e) { alert('Delete failed: ' + e.message); }
@@ -2244,7 +2244,7 @@ async function clearAIHistoryAll() {
   if (!confirm('Are you absolutely sure? This deletes the entire shared AI chat history for everyone.')) return;
   aiHistory = [];
   try {
-    const histRef = window._fbRefFn(window._fbDb, 'michaelTaskboard/aiHistory');
+    const histRef = window._fbRefFn(window._fbDb, 'michaels-taskboard/aiHistory');
     await window._fbSet(histRef, []);
     renderAIHistory();
     showSyncNotice('AI history cleared ✓');
