@@ -29,7 +29,7 @@ const firebaseConfig = {
   appId: "1:236147262195:web:0a4bd39667b2e3d46ded86"
 };
 
-const ALLOWED_UIDS = []; // TEMP — open for UID capture, lock down after
+const ALLOWED_UIDS = []; // Open to any Google sign-in
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
@@ -40,7 +40,7 @@ window.googleSignIn = async function() {
   try {
     const provider = new GoogleAuthProvider();
     const result = await signInWithPopup(auth, provider);
-    if (!ALLOWED_UIDS.includes(result.user.uid)) {
+    if (ALLOWED_UIDS.length > 0 && !ALLOWED_UIDS.includes(result.user.uid)) {
       await signOut(auth);
       document.getElementById('pw-error').style.display = 'block';
       document.getElementById('pw-error').textContent = 'This Google account is not authorized.';
@@ -80,7 +80,7 @@ onAuthStateChanged(auth, (user) => {
     return;
   }
   // Signed in — verify UID
-  if (!ALLOWED_UIDS.includes(user.uid)) {
+  if (ALLOWED_UIDS.length > 0 && !ALLOWED_UIDS.includes(user.uid)) {
     signOut(auth);
     return;
   }
@@ -2125,7 +2125,8 @@ let aiHistory = [];              // array of entries in memory
 let aiHistoryOpen = false;
 let aiHistoryListenerSet = false;
 const USER_NAME_MAP = {
-  'placeholder': 'Michael', // update with real UID after sign-in
+  'LrIIypdt95cf7LBYw6h4HjyRhsu1': 'Phil',
+  'MICHAEL_UID_PLACEHOLDER': 'Michael',
 };
 
 function loadAIHistory() {
