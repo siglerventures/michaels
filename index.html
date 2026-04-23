@@ -39,7 +39,7 @@ window.googleSignIn = async function() {
   try {
     const provider = new GoogleAuthProvider();
     const result = await signInWithPopup(auth, provider);
-    if (!ALLOWED_UIDS.includes(result.user.uid)) {
+    if (ALLOWED_UIDS.length > 0 && !ALLOWED_UIDS.includes(result.user.uid)) {
       await signOut(auth);
       document.getElementById('pw-error').style.display = 'block';
       document.getElementById('pw-error').textContent = 'This Google account is not authorized.';
@@ -79,7 +79,7 @@ onAuthStateChanged(auth, (user) => {
     return;
   }
   // Signed in — verify UID
-  if (!ALLOWED_UIDS.includes(user.uid)) {
+  if (ALLOWED_UIDS.length > 0 && !ALLOWED_UIDS.includes(user.uid)) {
     signOut(auth);
     return;
   }
@@ -372,7 +372,7 @@ onAuthStateChanged(auth, (user) => {
     <div style="font-size:13px;color:#888;text-align:center">Sign in to continue</div>
     <button onclick="googleSignIn()" style="background:#1a1a1a;color:#fff;border:none;padding:14px;border-radius:10px;font-size:16px;font-weight:600;cursor:pointer;width:100%;-webkit-appearance:none;margin-top:8px">Sign in with Google</button>
     <div id="pw-error" style="color:#e53e3e;font-size:13px;display:none;text-align:center">Incorrect password — try again</div>
-    <div style="font-size:11px;color:#bbb;text-align:center">Stays logged in for 30 days · Version 6.5</div>
+    <div style="font-size:11px;color:#bbb;text-align:center">Stays logged in for 30 days · Version 6.6</div>
   </div>
 </div>
 
@@ -1893,6 +1893,6 @@ function goHome() {
   </div>
 </div>
 
-<div style="text-align:center; padding: 4px 0; font-size: 11px; color: #bbb;">Michaelinity© Rev 6.5 · <span onclick="openDataModal()" style="cursor:pointer;color:#aaa">📦 Data</span> · <span onclick="if(confirm('Sign out of Task Board?'))doSignOut()" style="cursor:pointer;color:#aaa">🚪 Sign Out</span></div>
+<div style="text-align:center; padding: 4px 0; font-size: 11px; color: #bbb;">Michaelinity© Rev 6.6 · <span onclick="openDataModal()" style="cursor:pointer;color:#aaa">📦 Data</span> · <span onclick="if(confirm('Sign out of Task Board?'))doSignOut()" style="cursor:pointer;color:#aaa">🚪 Sign Out</span></div>
 </body>
 </html>
