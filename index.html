@@ -25,11 +25,11 @@ const firebaseConfig = {
   databaseURL: "https://michaels-taskoard-default-rtdb.firebaseio.com",
   projectId: "michaels-taskoard",
   storageBucket: "michaels-taskoard.firebasestorage.app",
-  messagingSenderId: "YOUR-MICHAEL-MESSAGING-SENDER-ID",
-  appId: "YOUR-MICHAEL-APP-ID"
+  messagingSenderId: "236147262195",
+  appId: "1:236147262195:web:0a4bd39667b2e3d46ded86"
 };
 
-const ALLOWED_UIDS = ['PASTE_MICHAEL_GOOGLE_UID_HERE'];
+const ALLOWED_UIDS = []; // TEMP — open for UID capture, lock down after
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
@@ -2125,7 +2125,7 @@ let aiHistory = [];              // array of entries in memory
 let aiHistoryOpen = false;
 let aiHistoryListenerSet = false;
 const USER_NAME_MAP = {
-  'PASTE_MICHAEL_GOOGLE_UID_HERE': 'Michael',
+  'placeholder': 'Michael', // update with real UID after sign-in
 };
 
 function loadAIHistory() {
